@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/normalize.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__content">
+        <div class="header__logo logo">
+          <a class="logo__link" href="#">
+            <img class="logo__img" src="./assets/logo.svg" alt="logo" />
+          </a>
+        </div>
+        <div class="header__menu menu">
+          <div class="menu__phone">
+            <a class="menu__link" href="#">
+              <img class="menu__phone-img" src="./assets/phone.svg" alt="phone" />
+              <span class="menu__phone-number">8 (910) 123-45-67</span>
+            </a>
+          </div>
+          <div class="menu__burger">
+            <button class="menu__burger-btn btn">
+              <img class="menu__burger-img" src="./assets/burger.svg" alt="burger" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="catalog">
+      <div class="catalog__content">
+        <div class="catalog__card">
+          <h1 class="catalog__title">Подари мечту</h1>
+          <p class="catalog__text">
+            Самые свежие пионы в Москве <br />
+            с доставкой на дом
+          </p>
+          <button class="catalog__btn btn">В каталог</button>
+        </div>
+        <div id="select" class="catalog__select dropdown">
+          Оттенок цветов
+          <ul class="dropdown__content">
+            <li class="dropdown__option">
+              <a class="dropdown__option-link" href="#">Ярко-розовые</a>
+            </li>
+            <li class="dropdown__option">
+              <a class="dropdown__option-link" href="#">Нежно-розовые</a>
+            </li>
+            <li class="dropdown__option">
+              <a class="dropdown__option-link" href="#">Красные</a>
+            </li>
+            <li class="dropdown__option">
+              <a class="dropdown__option-link" href="#">Бордовые</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"
+    ></script>
+    <script type="text/javascript">
+      function DropDown(el) {
+        this.select = el
+        this.initEvents()
+      }
+      DropDown.prototype = {
+        initEvents: function () {
+          var obj = this
+
+          obj.select.on("click", function (event) {
+            $(this).toggleClass("active")
+            event.stopPropagation()
+          })
+        }
+      }
+
+      $(function () {
+        var select = new DropDown($("#select"))
+
+        $(document).click(function () {
+          $(".catalog__select").removeClass("active")
+        })
+      })
+    </script>
+  </body>
+</html>
