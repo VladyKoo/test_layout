@@ -3,46 +3,58 @@
 name: automerge
 on:
   pull_request_review:
+    branches:
+      - release/**
+      - hotfix/**
     types:
       - submitted
   check_suite:
     types:
       - completed
-  status: {}
 jobs:
-  automerge:
+  releases:
+    name: Releases
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.base.ref == 'prod' }}
     steps:
-      - id: automerge-prod
-        name: automerge-prod
-        if: ${{ (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/')) && github.event.pull_request.base.ref == 'prod' }}
-        uses: "pascalgn/automerge-action@v0.15.3"
+      - name: Dump GitHub context
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_DELETE_BRANCH: true
-          MERGE_LABELS: ""
-          MERGE_METHOD: "merge"
-  sync:
-    runs-on: ubuntu-latest
-    needs: [ automerge ]
-    steps:
-      - name: Get release version
-        if: ${{ (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/')) && github.event.pull_request.base.ref == 'prod' }}
-        run: echo "RELEASE=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
-      - uses: actions/checkout@v3
-        with:
-          ref: dev
-      - name: Reset prod branch
-        if: ${{ success() }}
-        run: |
-          git fetch origin prod:prod
-          git reset --hard prod
-      - name: Create Pull Request
-        if: ${{ success() }}
-        uses: peter-evans/create-pull-request@v4
-        with:
-          branch: sync-dev-with-prod-${{ env.RELEASE }}
-          token: ${{ secrets.PAT }}
-          title: "${{ env.RELEASE }} Sync dev with prod"
-          labels: |
-            automated PR
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+  # automerge:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - id: automerge-prod
+  #       name: automerge-prod
+  #       if: ${{ (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/')) && github.event.pull_request.base.ref == 'prod' }}
+  #       uses: "pascalgn/automerge-action@v0.15.3"
+  #       env:
+  #         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  #         MERGE_DELETE_BRANCH: true
+  #         MERGE_LABELS: ""
+  #         MERGE_METHOD: "merge"
+  # sync:
+  #   runs-on: ubuntu-latest
+  #   needs: [ automerge ]
+  #   steps:
+  #     - name: Get release version
+  #       if: ${{ (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/')) && github.event.pull_request.base.ref == 'prod' }}
+  #       run: echo "RELEASE=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: dev
+  #     - name: Reset prod branch
+  #       if: ${{ success() }}
+  #       run: |
+  #         git fetch origin prod:prod
+  #         git reset --hard prod
+  #     - name: Create Pull Request
+  #       if: ${{ success() }}
+  #       uses: peter-evans/create-pull-request@v4
+  #       with:
+  #         branch: sync-dev-with-prod-${{ env.RELEASE }}
+  #         token: ${{ secrets.PAT }}
+  #         title: "${{ env.RELEASE }} Sync dev with prod"
+  #         labels: |
+  #           automated PR
