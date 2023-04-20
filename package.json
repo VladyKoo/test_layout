@@ -1,0 +1,8 @@
+{
+  "name": "test_layout",
+  "version": "2023.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:VladyKoo/test_layout.git",
+  "author": "VladyKoo <vladykoo@mail.ru>",
+  "license": "MIT"
+}

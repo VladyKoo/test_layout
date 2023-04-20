@@ -1,0 +1,176 @@
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.header {
+  width: 100%;
+}
+
+.header__content {
+  min-width: 375px;
+  height: 50px;
+  background: #ff8fa4;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu__phone {
+  margin-right: 24px;
+}
+
+.menu__phone-img {
+  margin-right: 10px;
+}
+
+.menu__phone-number {
+  font-weight: 600;
+}
+
+.menu__link {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.catalog__card {
+  background: url(../assets/backgound.svg) no-repeat;
+  background-size: 100%;
+  min-width: 375px;
+  height: 340px;
+  padding: 80px 0 0 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.catalog__title {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 44px;
+  color: #262626;
+  margin-bottom: 16px;
+}
+
+.catalog__text {
+  margin-bottom: 46px;
+}
+
+.catalog__btn {
+  width: 180px;
+  height: 45px;
+  background: #da556d;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.catalog__btn:active {
+  background: #c54058;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.catalog__select {
+  position: relative;
+  width: 180px;
+  height: 42px;
+  margin: 32px 0 0 16px;
+  padding: 12px 16px;
+  color: #262626;
+
+  background: #fff;
+  border: 1px solid #ff8fa4;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.catalog__select:after {
+  content: url("/assets/down-arrow.svg");
+  position: absolute;
+  top: 12px;
+  right: 15px;
+}
+
+.dropdown__content {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  width: 100%;
+  width: 180px;
+  background: #fff;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid #ff8fa4;
+  border-top: none;
+  border-bottom: none;
+  list-style: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.dropdown__option-link {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding-bottom: 14px;
+  padding-left: 24px;
+
+  transition: all 0.3s ease-out;
+}
+
+.dropdown__option:hover a {
+  color: #da556d;
+}
+
+.catalog__select.active {
+  border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+
+.catalog__select.active:after {
+  border-color: #000 transparent;
+}
+
+.catalog__select.active .dropdown__content {
+  border-bottom: 1px solid #da556d;
+  max-height: 500px;
+}
